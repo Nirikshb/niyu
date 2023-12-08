@@ -17,32 +17,31 @@ const Home = () => {
   const menuAnimation = useRef(new Animated.Value(0)).current;
 
   const toggleMenu = () => {
-    if (isMenuOpen) {
-      Animated.timing(menuAnimation, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: false,
-      }).start(() => setIsMenuOpen(false));
-    } else {
-      setIsMenuOpen(true);
-      Animated.timing(menuAnimation, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: false,
-      }).start();
-    }
+    const toValue = isMenuOpen ? 0 : 1;
+    Animated.timing(menuAnimation, {
+      toValue,
+      duration: 300,
+      useNativeDriver: false,
+    }).start(() => setIsMenuOpen(!isMenuOpen));
   };
 
-  const menuHeight = menuAnimation.interpolate({
-    inputRange: [0, 0.5, 1],
-    outputRange: [0, 0, 100], // Adjust the final height of the menu as needed
+  const menuTranslateX = menuAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [-300, 0], // Adjust the value to change the slide distance
   });
 
   return (
     <View>
       <Header title="Niyu" toggleMenu={toggleMenu} />
-      <Animated.View style={[styles.menu, { height: menuHeight }]}>
-        {/* Add menu items or links here */}
+      <Animated.View
+        style={[
+          styles.menu,
+          {
+            transform: [{ translateX: menuTranslateX }],
+          },
+        ]}
+      >
+        {/* Menu items */}
         <TouchableOpacity onPress={toggleMenu} style={styles.menuItem}>
           <Text>Menu Item 1</Text>
         </TouchableOpacity>
@@ -78,11 +77,14 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     paddingVertical: 10,
     paddingHorizontal: 20,
+    position: 'absolute',
+    top: 50, // Adjust the top value to set the menu below the header
+    left: 0,
+    width: 300, // Adjust the width of the menu
   },
   menuItem: {
     paddingVertical: 10,
   },
-
 });
 
 export default Home;
