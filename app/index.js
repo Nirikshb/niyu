@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 
-const Header = ({ title, toggleMenu }) => {
+const Header = ({ title, toggleMenu, isMenuOpen }) => {
   return (
     <View style={styles.header}>
       <TouchableOpacity onPress={toggleMenu} style={styles.menuButton}>
-        <Text style={styles.menuText}>☰</Text>
+        <Animated.Text style={[styles.menuText, isMenuOpen && styles.rotateX]}>☰</Animated.Text>
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
     </View>
@@ -18,21 +18,30 @@ const Home = () => {
 
   const toggleMenu = () => {
     const toValue = isMenuOpen ? 0 : 1;
-    Animated.timing(menuAnimation, {
-      toValue,
-      duration: 300,
-      useNativeDriver: false,
-    }).start(() => setIsMenuOpen(!isMenuOpen));
+  
+    Animated.parallel([
+      Animated.timing(menuAnimation, {
+        toValue,
+        duration: 800, // Duration for the sliding animation
+        useNativeDriver: false,
+      }),
+      Animated.timing(menuAnimation, {
+        toValue: isMenuOpen ? 0 : 1,
+        duration: 300, // Duration for the rotation animation
+        useNativeDriver: false,
+      }).start(),
+    ]).start(() => setIsMenuOpen(!isMenuOpen));
   };
+
 
   const menuTranslateX = menuAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [-300, 0], // Adjust the value to change the slide distance
+    outputRange: [-500, 0], // Adjust the value to change the slide distance
   });
 
   return (
     <View>
-      <Header title="Niyu" toggleMenu={toggleMenu} />
+      <Header title="Niyu" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
       <Animated.View
         style={[
           styles.menu,
@@ -80,10 +89,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 50, // Adjust the top value to set the menu below the header
     left: 0,
-    width: 300, // Adjust the width of the menu
+    width: 400, // Adjust the width of the menu
   },
   menuItem: {
     paddingVertical: 10,
+  },
+  rotateX: {
+    transform: [{ rotate: '90deg' }],
   },
 });
 
