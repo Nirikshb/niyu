@@ -23,6 +23,12 @@ const ContentSpace = ({ text, backgroundColor, textColor, textStyle }) => {
 const Home = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuAnimation = useRef(new Animated.Value(0)).current;
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
+
+
+  const toggleTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+  };
 
   const toggleMenu = () => {
     const toValue = isMenuOpen ? 0 : 1;
@@ -47,7 +53,12 @@ const Home = () => {
   });
 
   const data = [
-    { id: '1', text: "The credit card you'll ever need", backgroundColor: '#ff00ff', textColor: 'white' },
+    { id: '1',
+    text: "\n\n\n\n\n\n\n\nA gold metal card worth 2000/- only. Get your name on it today!!!!",
+    backgroundColor: 'black',
+    textColor: 'white',
+    textStyle: { fontStyle: 'italic' }
+  },
     { id: '2', text: 'Join the waitList', backgroundColor: '#ffcc00', textColor: 'black' },
     { id: '3', text: 'No hidden Fees', backgroundColor: '#00ff00', textColor: 'black', textStyle: { fontStyle: 'italic' } },
     { id: '4', text: 'Co-branded is the way', backgroundColor: '#00ffff', textColor: 'black' },
@@ -57,8 +68,9 @@ const Home = () => {
   ];
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, isDarkTheme ? { backgroundColor: 'black' } : { backgroundColor: 'white' }]}>
       <Header title="Niyu" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
+
       <FlatList
        contentcontainerstyle={{ height: '100' }}
         data={data}
@@ -80,6 +92,10 @@ const Home = () => {
           },
         ]}
       >
+         <TouchableOpacity onPress={toggleTheme} style={styles.themeButton}>
+        <Text style={styles.themeButtonText}>{isDarkTheme ? 'Light Theme' : 'Dark Theme'}</Text>
+      </TouchableOpacity>
+
           <TouchableHighlight onPress={toggleMenu} underlayColor="transparent" style={styles.menuItem}>
           <Text>About Us</Text>
         </TouchableHighlight>
@@ -170,6 +186,18 @@ const styles = StyleSheet.create({
   footerText: {
     color: 'white',
     marginBottom: 10,
+  },
+  themeButton: {
+    alignSelf: 'flex-end',
+    margin: 10,
+    padding: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: 'lightgray',
+  },
+  themeButtonText: {
+    color: 'black',
+    fontSize: 16,
   },
 });
 
