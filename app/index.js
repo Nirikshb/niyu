@@ -23,12 +23,6 @@ const ContentSpace = ({ text, backgroundColor, textColor, textStyle }) => {
 const Home = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuAnimation = useRef(new Animated.Value(0)).current;
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
-
-
-  const toggleTheme = () => {
-    setIsDarkTheme(!isDarkTheme);
-  };
 
   const toggleMenu = () => {
     const toValue = isMenuOpen ? 0 : 1;
@@ -53,12 +47,7 @@ const Home = () => {
   });
 
   const data = [
-    { id: '1',
-    text: "\n\n\n\n\n\n\n\nA gold metal card worth 2000/- only. Get your name on it today!!!!",
-    backgroundColor: 'black',
-    textColor: 'white',
-    textStyle: { fontStyle: 'italic' }
-  },
+    { id: '1', text: "The credit card you'll ever need", backgroundColor: '#ff00ff', textColor: 'white' },
     { id: '2', text: 'Join the waitList', backgroundColor: '#ffcc00', textColor: 'black' },
     { id: '3', text: 'No hidden Fees', backgroundColor: '#00ff00', textColor: 'black', textStyle: { fontStyle: 'italic' } },
     { id: '4', text: 'Co-branded is the way', backgroundColor: '#00ffff', textColor: 'black' },
@@ -68,11 +57,9 @@ const Home = () => {
   ];
 
   return (
-    <View style={[styles.container, isDarkTheme ? { backgroundColor: 'black' } : { backgroundColor: 'white' }]}>
+    <View style={styles.container}>
       <Header title="Niyu" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
-
       <FlatList
-       contentcontainerstyle={{ height: '100' }}
         data={data}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
@@ -92,15 +79,11 @@ const Home = () => {
           },
         ]}
       >
-         <TouchableOpacity onPress={toggleTheme} style={styles.themeButton}>
-        <Text style={styles.themeButtonText}>{isDarkTheme ? 'Light Theme' : 'Dark Theme'}</Text>
-      </TouchableOpacity>
-
           <TouchableHighlight onPress={toggleMenu} underlayColor="transparent" style={styles.menuItem}>
-          <Text>About Us</Text>
+          <Text>Menu Item 1</Text>
         </TouchableHighlight>
         <TouchableHighlight onPress={toggleMenu} underlayColor="transparent" style={styles.menuItem}>
-          <Text>Careers</Text>
+          <Text>Menu Item 2</Text>
         </TouchableHighlight>
         
       </Animated.View>
@@ -119,7 +102,7 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
+    backgroundColor: 'white',
   },
   header: {
     flexDirection: 'row',
@@ -143,11 +126,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightgray',
     overflow: 'hidden',
     paddingVertical: 10,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     position: 'absolute',
     top: 70,
     left: 0,
-    width: 100,
+    width: 300,
   },
   menuItem: {
     paddingVertical: 10,
@@ -164,11 +147,6 @@ const styles = StyleSheet.create({
   contentText: {
     fontWeight: 'bold',
     fontSize: 20,
-    fontFamily: 'Georgia', // Change this to your preferred fancy font
-    fontStyle: 'italic', // Add more styles as needed (e.g., bold, italic)
-    textShadowColor: 'rgba(0, 0, 0, 0.7)', // Shadow effect for the text
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 5,
   },
   footer: {
     flexDirection: 'row',
@@ -186,18 +164,6 @@ const styles = StyleSheet.create({
   footerText: {
     color: 'white',
     marginBottom: 10,
-  },
-  themeButton: {
-    alignSelf: 'flex-end',
-    margin: 10,
-    padding: 10,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: 'lightgray',
-  },
-  themeButtonText: {
-    color: 'black',
-    fontSize: 16,
   },
 });
 
