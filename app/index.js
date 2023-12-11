@@ -79,11 +79,11 @@ const Home = () => {
           },
         ]}
       >
-          <TouchableHighlight onPress={toggleMenu} underlayColor="transparent" style={styles.menuItem}>
-          <Text>Menu Item 1</Text>
+         <TouchableHighlight onPress={toggleMenu} underlayColor="transparent" style={styles.menuItem}>
+          <Text>About Us</Text>
         </TouchableHighlight>
         <TouchableHighlight onPress={toggleMenu} underlayColor="transparent" style={styles.menuItem}>
-          <Text>Menu Item 2</Text>
+          <Text>Careers</Text>
         </TouchableHighlight>
         
       </Animated.View>
