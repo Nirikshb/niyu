@@ -79,14 +79,15 @@ const Home = () => {
           },
         ]}
       >
-         <TouchableHighlight onPress={toggleMenu} underlayColor="transparent" style={styles.menuItem}>
-          <Text>About Us</Text>
+          <TouchableHighlight onPress={toggleMenu} underlayColor="transparent" style={styles.menuItem}>
+          <Text>Menu Item 1</Text>
         </TouchableHighlight>
         <TouchableHighlight onPress={toggleMenu} underlayColor="transparent" style={styles.menuItem}>
-          <Text>Careers</Text>
+          <Text>Menu Item 2</Text>
         </TouchableHighlight>
         
       </Animated.View>
+      
       <View style={styles.footer}>
         <View style={styles.footerTextContainer}>
           <Text style={styles.footerText}>About us</Text>
@@ -102,7 +103,7 @@ const Home = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'black',
   },
   header: {
     flexDirection: 'row',
