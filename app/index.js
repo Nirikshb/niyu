@@ -1,20 +1,16 @@
 import React, { useState, useRef } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Animated,
-  FlatList,
-  TouchableHighlight,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Animated, FlatList, TouchableHighlight, PanResponder } from "react-native";
+import { Image } from "react-native";
+import { FontAwesome5 } from "@expo/vector-icons";
+import CreditCardImage from "./CreditCardImage";
+
 
 const Header = ({ title, toggleMenu, isMenuOpen }) => {
   return (
     <View style={styles.header}>
       <TouchableOpacity onPress={toggleMenu} style={styles.menuButton}>
         <Animated.Text style={[styles.menuText, isMenuOpen && styles.rotateX]}>
-          ☰
+        <FontAwesome5 name="credit-card" size={25} color="white" />
         </Animated.Text>
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
@@ -22,9 +18,14 @@ const Header = ({ title, toggleMenu, isMenuOpen }) => {
   );
 };
 
-const ContentSpace = ({ text, backgroundColor, textColor, textStyle }) => {
+const ContentSpace = ({ text, backgroundColor, textColor, textStyle, isFirstContent }) => {
+  const creditCardImage = require("./assets/black_brass_1.jpg"); // Correct path to your image file
+
   return (
     <View style={[styles.contentSpace, { backgroundColor }]}>
+      {isFirstContent && ( // Render the image only for the first content
+        <Image source={creditCardImage} style={styles.creditCardImage} />
+      )}
       <Text style={[styles.contentText, { color: textColor }, textStyle]}>
         {text}
       </Text>
@@ -33,6 +34,7 @@ const ContentSpace = ({ text, backgroundColor, textColor, textStyle }) => {
 };
 
 const Home = () => {
+  const creditCardImage = require("./assets/black_brass_1.jpg");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuAnimation = useRef(new Animated.Value(0)).current;
 
@@ -108,17 +110,18 @@ const Home = () => {
     <View style={styles.container}>
       <Header title="Niyu" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
       <FlatList
-        data={data}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <ContentSpace
-            text={item.text}
-            backgroundColor={item.backgroundColor}
-            textColor={item.textColor}
-            textStyle={item.textStyle}
-          />
-        )}
-      />
+  data={data}
+  keyExtractor={(item) => item.id}
+  renderItem={({ item, index }) => (
+    <ContentSpace
+      text={item.text}
+      backgroundColor={item.backgroundColor}
+      textColor={item.textColor}
+      textStyle={item.textStyle}
+      isFirstContent={index === 0} // Check if it's the first content
+    />
+  )}
+/>
       <Animated.View
         style={[
           styles.menu,
@@ -179,14 +182,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   menu: {
-    backgroundColor: "lightgray",
+    backgroundColor: "black",
     overflow: "hidden",
     paddingVertical: 10,
     paddingHorizontal: 20,
     position: "absolute",
     top: 70,
     left: 0,
-    width: 300,
+    width: 400,
   },
   menuItem: {
     paddingVertical: 10,
@@ -203,6 +206,12 @@ const styles = StyleSheet.create({
   contentText: {
     fontWeight: "bold",
     fontSize: 20,
+  },
+  creditCardImage: {
+    width: 200, // Set width as per your requirement
+    height: 120, // Set height as per your requirement
+    resizeMode: "contain", // Adjust the image's content mode as needed
+    marginBottom: 10, // Adjust margin as needed
   },
   footer: {
     flexDirection: "row",
