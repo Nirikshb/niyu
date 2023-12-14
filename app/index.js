@@ -2,7 +2,6 @@ import React, { useState, useRef } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Animated, FlatList, TouchableHighlight, PanResponder } from "react-native";
 import { Image } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
-import CreditCardImage from "./CreditCardImage";
 
 
 const Header = ({ title, toggleMenu, isMenuOpen }) => {
@@ -34,7 +33,6 @@ const ContentSpace = ({ text, backgroundColor, textColor, textStyle, isFirstCont
 };
 
 const Home = () => {
-  const creditCardImage = require("./assets/black_brass_1.jpg");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const menuAnimation = useRef(new Animated.Value(0)).current;
 
