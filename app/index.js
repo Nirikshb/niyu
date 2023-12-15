@@ -1,15 +1,23 @@
 import React, { useState, useRef } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Animated, FlatList, TouchableHighlight, PanResponder } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Animated,
+  FlatList,
+  TouchableHighlight,
+  PanResponder,
+} from "react-native";
 import { Image } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
-
 
 const Header = ({ title, toggleMenu, isMenuOpen }) => {
   return (
     <View style={styles.header}>
       <TouchableOpacity onPress={toggleMenu} style={styles.menuButton}>
         <Animated.Text style={[styles.menuText, isMenuOpen && styles.rotateX]}>
-        <FontAwesome5 name="credit-card" size={25} color="white" />
+          <FontAwesome5 name="credit-card" size={25} color="white" />
         </Animated.Text>
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
@@ -17,7 +25,13 @@ const Header = ({ title, toggleMenu, isMenuOpen }) => {
   );
 };
 
-const ContentSpace = ({ text, backgroundColor, textColor, textStyle, isFirstContent }) => {
+const ContentSpace = ({
+  text,
+  backgroundColor,
+  textColor,
+  textStyle,
+  isFirstContent,
+}) => {
   const creditCardImage = require("./assets/black_brass_1.jpg"); // Correct path to your image file
 
   return (
@@ -60,89 +74,89 @@ const Home = () => {
 
   const data = [
     {
-      id: '1',
+      id: "1",
       text: "The only credit card you'll ever need! Really",
-      backgroundColor: '#deecfb',
-      textColor: 'black',
+      backgroundColor: "#deecfb",
+      textColor: "black",
     },
     {
-      id: '2',
-      text: 'Join the Waitlist, it is getting long!!',
-      backgroundColor: '#bedaf7',
-      textColor: 'black',
+      id: "2",
+      text: "Join the Waitlist, it is getting long!!",
+      backgroundColor: "#bedaf7",
+      textColor: "black",
     },
     {
-      id: '3',
-      text: 'No hidden Fees',
-      backgroundColor: '#7ab3ef',
-      textColor: 'white',
-      textStyle: { fontStyle: 'italic' },
+      id: "3",
+      text: "No hidden Fees",
+      backgroundColor: "#7ab3ef",
+      textColor: "white",
+      textStyle: { fontStyle: "italic" },
     },
     {
-      id: '4',
-      text: 'Co-branded is the way',
-      backgroundColor: '#368ce7',
-      textColor: 'white',
+      id: "4",
+      text: "Co-branded is the way",
+      backgroundColor: "#368ce7",
+      textColor: "white",
     },
     {
-      id: '5',
-      text: 'Top 3 spends gets 10% off',
-      backgroundColor: '#1666ba',
-      textColor: 'white',
+      id: "5",
+      text: "Top 3 spends gets 10% off",
+      backgroundColor: "#1666ba",
+      textColor: "white",
     },
     {
-      id: '6',
-      text: '3x rewards on utility bills',
-      backgroundColor: '#055096',
-      textColor: 'white',
+      id: "6",
+      text: "3x rewards on utility bills",
+      backgroundColor: "#055096",
+      textColor: "white",
     },
     {
-      id: '7',
-      text: '5x rewards on Shopping',
-      backgroundColor: '#003866',
-      textColor: 'white',
+      id: "7",
+      text: "5x rewards on Shopping",
+      backgroundColor: "#003866",
+      textColor: "white",
     },
   ];
 
   return (
     <View style={styles.container}>
-      <Header title="Niyu" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
-      <FlatList
-  data={data}
-  keyExtractor={(item) => item.id}
-  renderItem={({ item, index }) => (
-    <ContentSpace
-      text={item.text}
-      backgroundColor={item.backgroundColor}
-      textColor={item.textColor}
-      textStyle={item.textStyle}
-      isFirstContent={index === 0} // Check if it's the first content
+    <Header title="Niyu" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
+    <FlatList
+      data={data}
+      keyExtractor={(item) => item.id}
+      renderItem={({ item, index }) => (
+        <ContentSpace
+          text={item.text}
+          backgroundColor={item.backgroundColor}
+          textColor={item.textColor}
+          textStyle={item.textStyle}
+          isFirstContent={index === 0}
+        />
+      )}
     />
-  )}
-/>
-      <Animated.View
-        style={[
-          styles.menu,
-          {
-            transform: [{ translateX: menuTranslateX }],
-          },
-        ]}
+    <Animated.View
+      style={[
+        styles.menu,
+        {
+          transform: [{ translateX: menuTranslateX }],
+        },
+      ]}
+    >
+      <TouchableOpacity
+        onPress={toggleMenu}
+        style={styles.menuItem}
+        activeOpacity={0.7}
       >
-        <TouchableHighlight
-          onPress={toggleMenu}
-          underlayColor="transparent"
-          style={styles.menuItem}
-        >
-          <Text>Menu Item 1</Text>
-        </TouchableHighlight>
-        <TouchableHighlight
-          onPress={toggleMenu}
-          underlayColor="transparent"
-          style={styles.menuItem}
-        >
-          <Text>Menu Item 2</Text>
-        </TouchableHighlight>
-      </Animated.View>
+        <Text>Menu Item 1</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={toggleMenu}
+        style={styles.menuItem}
+        activeOpacity={0.7}
+      >
+        <Text>Menu Item 2</Text>
+      </TouchableOpacity>
+    </Animated.View>
 
       <View style={styles.footer}>
         <View style={styles.footerTextContainer}>
