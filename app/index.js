@@ -52,24 +52,17 @@ const Home = () => {
 
   const toggleMenu = () => {
     const toValue = isMenuOpen ? 0 : 1;
-
-    Animated.parallel([
-      Animated.timing(menuAnimation, {
-        toValue,
-        duration: 800, // Duration for the sliding animation
-        useNativeDriver: false,
-      }),
-      Animated.timing(menuAnimation, {
-        toValue: isMenuOpen ? 0 : 1,
-        duration: 300, // Duration for the rotation animation
-        useNativeDriver: false,
-      }).start(),
-    ]).start(() => setIsMenuOpen(!isMenuOpen));
+  
+    Animated.timing(menuAnimation, {
+      toValue,
+      duration: 800,
+      useNativeDriver: true, 
+      }).start(() => setIsMenuOpen(!isMenuOpen));
   };
-
+  
   const menuTranslateX = menuAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [-500, 0], // Adjust the value to change the slide distance
+    outputRange: [-500, 0],
   });
 
   const data = [
@@ -118,9 +111,20 @@ const Home = () => {
     },
   ];
 
+  const handleMenuItem1 = () => {
+    // Action for Menu Item 1
+    console.log("Menu Item 1 was pressed");
+  };
+  
+  const handleMenuItem2 = () => {
+    // Action for Menu Item 2
+    console.log("Menu Item 2 was pressed");
+  };
+  
+
   return (
     <View style={styles.container}>
-    <Header title="Niyu" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
+    <Header title="Niyo" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
     <FlatList
       data={data}
       keyExtractor={(item) => item.id}
@@ -134,29 +138,29 @@ const Home = () => {
         />
       )}
     />
-    <Animated.View
-      style={[
-        styles.menu,
-        {
-          transform: [{ translateX: menuTranslateX }],
-        },
-      ]}
-    >
-      <TouchableOpacity
-        onPress={toggleMenu}
-        style={styles.menuItem}
-        activeOpacity={0.7}
-      >
-        <Text>Menu Item 1</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={toggleMenu}
-        style={styles.menuItem}
-        activeOpacity={0.7}
-      >
-        <Text>Menu Item 2</Text>
-      </TouchableOpacity>
-    </Animated.View>
+   <Animated.View
+  style={[
+    styles.menu,
+    {
+      transform: [{ translateX: menuTranslateX }],
+    },
+  ]}
+>
+  <TouchableOpacity
+    onPress={handleMenuItem1} // New function for Menu Item 1
+    style={styles.menuItem}
+    activeOpacity={0.7}
+  >
+    <Text>Menu Item 1</Text>
+  </TouchableOpacity>
+  <TouchableOpacity
+    onPress={handleMenuItem2} // New function for Menu Item 2
+    style={styles.menuItem}
+    activeOpacity={0.7}
+  >
+    <Text>Menu Item 2</Text>
+  </TouchableOpacity>
+</Animated.View>
 
       <View style={styles.footer}>
         <View style={styles.footerTextContainer}>
@@ -177,12 +181,11 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: "row",
-    height: 70,
+    height: "10%",
     backgroundColor: "lightblue",
     alignItems: "center",
     paddingHorizontal: 5,
   },
-
   menuButton: {
     marginRight: 15,
   },
@@ -194,14 +197,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   menu: {
-    backgroundColor: "black",
+    backgroundColor: "white",
     overflow: "hidden",
     paddingVertical: 10,
     paddingHorizontal: 20,
     position: "absolute",
-    top: 70,
+    top: "10%", // Adjust as needed
     left: 0,
-    width: 400,
+    width: "100%", // Adjust as needed
   },
   menuItem: {
     paddingVertical: 10,
@@ -231,9 +234,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     bottom: 0,
     backgroundColor: "black",
-    height: 180,
+    height: "15%", // Adjust as needed
     width: "100%",
-    paddingHorizontal: 25,
+    paddingHorizontal: "5%", // Adjust as needed
   },
   footerTextContainer: {
     flexDirection: "column",
