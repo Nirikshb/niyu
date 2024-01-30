@@ -16,9 +16,7 @@ const Header = ({ title, toggleMenu, isMenuOpen }) => {
   return (
     <View style={styles.header}>
       <TouchableOpacity onPress={toggleMenu} style={styles.menuButton}>
-        <Animated.Text style={[styles.menuText, isMenuOpen && styles.rotateX]}>
-          <FontAwesome5 name="credit-card" size={25} color="white" />
-        </Animated.Text>
+        <FontAwesome5 name="credit-card" size={25} color="white" style={{ transform: [{ rotateX: isMenuOpen ? '180deg' : '0deg' }] }} />
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
     </View>
