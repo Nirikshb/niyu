@@ -1,12 +1,13 @@
 // CreditCardImage.js
 
 import React, { useRef } from "react";
-import { Image, Animated, StyleSheet, PanResponder } from "react-native";
+import { Image, Animated, StyleSheet, PanResponder, ViewPropTypes } from "react-native";
+import PropTypes from 'prop-types';
 
 const CreditCardImage = ({ imageSource }) => {
   const rotateValue = useRef(new Animated.Value(0)).current;
 
-  const startRotation = () => {
+  const rotateCard = () => {
     Animated.timing(rotateValue, {
       toValue: 1,
       duration: 500,
@@ -18,9 +19,7 @@ const CreditCardImage = ({ imageSource }) => {
 
   const panResponder = PanResponder.create({
     onStartShouldSetPanResponder: () => true,
-    onPanResponderGrant: () => {
-      startRotation();
-    },
+    onPanResponderGrant: rotateCard,
   });
 
   return (
@@ -44,7 +43,22 @@ const CreditCardImage = ({ imageSource }) => {
   );
 };
 
-const styles = StyleSheet.create({
+CreditCardImage.propTypes = {
+  imageSource: PropTypes.oneOfType([
+    PropTypes.shape({
+      uri: PropTypes.string,
+    }),
+    PropTypes.number, // for static resources
+  ]).isRequired,
+};
+
+export default CreditCardImage;
+
+// styles.js
+
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
   creditCardImage: {
     width: 200,
     height: 120,
@@ -52,5 +66,3 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
 });
-
-export default CreditCardImage;
