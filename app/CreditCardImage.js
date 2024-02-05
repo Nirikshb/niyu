@@ -48,13 +48,11 @@ CreditCardImage.propTypes = {
     PropTypes.shape({
       uri: PropTypes.string,
     }),
-    PropTypes.number, // for static resources
+    PropTypes.number, 
   ]).isRequired,
 };
 
 export default CreditCardImage;
-
-// styles.js
 
 import { StyleSheet } from "react-native";
 
