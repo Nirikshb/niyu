@@ -50,12 +50,13 @@ const Home = () => {
 
   const toggleMenu = () => {
     const toValue = isMenuOpen ? 0 : 1;
+    const animationDuration = 400; // Adjust the duration (in milliseconds) as needed
   
     Animated.timing(menuAnimation, {
       toValue,
-      duration: 800,
+      duration: animationDuration,
       useNativeDriver: true, 
-      }).start(() => setIsMenuOpen(!isMenuOpen));
+    }).start(() => setIsMenuOpen(!isMenuOpen));
   };
   
   const menuTranslateX = menuAnimation.interpolate({
