@@ -10,6 +10,8 @@ import {
   PanResponder,
 } from "react-native";
 import { Image } from "react-native";
+import { TouchableHighlight } from 'react-native';
+
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const Header = ({ title, toggleMenu, isMenuOpen }) => {
@@ -145,20 +147,22 @@ const Home = () => {
     },
   ]}
 >
-  <TouchableOpacity
-    onPress={handleMenuItem1} // New function for Menu Item 1
-    style={styles.menuItem}
-    activeOpacity={0.7}
+  <TouchableHighlight
+    onPress={handleMenuItem1}
+    style={[styles.menuItem, { backgroundColor: 'transparent' }]}
+    activeOpacity={1}
+    underlayColor="#f0f0f0" // Set the color when pressed
   >
     <Text>Menu Item 1</Text>
-  </TouchableOpacity>
-  <TouchableOpacity
-    onPress={handleMenuItem2} // New function for Menu Item 2
-    style={styles.menuItem}
-    activeOpacity={0.7}
+  </TouchableHighlight>
+  <TouchableHighlight
+    onPress={handleMenuItem2}
+    style={[styles.menuItem, { backgroundColor: 'transparent' }]}
+    activeOpacity={1}
+    underlayColor="#f0f0f0" // Set the color when pressed
   >
     <Text>Menu Item 2</Text>
-  </TouchableOpacity>
+  </TouchableHighlight>
 </Animated.View>
 
       <View style={styles.footer}>
@@ -207,8 +211,10 @@ const styles = StyleSheet.create({
   },
   menuItem: {
     paddingVertical: 10,
-    // borderBottomWidth: 1,
-    // borderBottomColor: 'lightgray',
+    backgroundColor: 'transparent',
+    borderRadius: 10, // Add border radius for rounded corners
+    borderWidth: 1, // Add border width
+    borderColor: 'transparent', // Set border color to transparent initially
   },
 
   contentSpace: {
