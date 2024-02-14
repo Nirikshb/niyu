@@ -1,17 +1,7 @@
 import React, { useState, useRef } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Animated,
-  FlatList,
-  TouchableHighlight,
-  PanResponder,
-} from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Animated, FlatList, TouchableHighlight, PanResponder } from "react-native";
 import { Image } from "react-native";
 import { TouchableHighlight } from 'react-native';
-
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const Header = ({ title, toggleMenu, isMenuOpen }) => {
@@ -32,11 +22,11 @@ const ContentSpace = ({
   textStyle,
   isFirstContent,
 }) => {
-  const creditCardImage = require("./assets/black_brass_1.jpg"); // Correct path to your image file
+  const creditCardImage = require("./assets/black_brass_1.jpg");
 
   return (
     <View style={[styles.contentSpace, { backgroundColor }]}>
-      {isFirstContent && ( // Render the image only for the first content
+      {isFirstContent && (
         <Image source={creditCardImage} style={styles.creditCardImage} />
       )}
       <Text style={[styles.contentText, { color: textColor }, textStyle]}>
@@ -52,7 +42,7 @@ const Home = () => {
 
   const toggleMenu = () => {
     const toValue = isMenuOpen ? 0 : 1;
-    const animationDuration = 400; // Adjust the duration (in milliseconds) as needed
+    const animationDuration = 400;
   
     Animated.timing(menuAnimation, {
       toValue,
@@ -113,57 +103,54 @@ const Home = () => {
   ];
 
   const handleMenuItem1 = () => {
-    // Action for Menu Item 1
     console.log("Menu Item 1 was pressed");
   };
   
   const handleMenuItem2 = () => {
-    // Action for Menu Item 2
     console.log("Menu Item 2 was pressed");
   };
-  
 
   return (
     <View style={styles.container}>
-    <Header title="Niyo" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
-    <FlatList
-      data={data}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item, index }) => (
-        <ContentSpace
-          text={item.text}
-          backgroundColor={item.backgroundColor}
-          textColor={item.textColor}
-          textStyle={item.textStyle}
-          isFirstContent={index === 0}
-        />
-      )}
-    />
-   <Animated.View
-  style={[
-    styles.menu,
-    {
-      transform: [{ translateX: menuTranslateX }],
-    },
-  ]}
->
-  <TouchableHighlight
-    onPress={handleMenuItem1}
-    style={[styles.menuItem, { backgroundColor: 'transparent' }]}
-    activeOpacity={1}
-    underlayColor="#f0f0f0" // Set the color when pressed
-  >
-    <Text>Menu Item 1</Text>
-  </TouchableHighlight>
-  <TouchableHighlight
-    onPress={handleMenuItem2}
-    style={[styles.menuItem, { backgroundColor: 'transparent' }]}
-    activeOpacity={1}
-    underlayColor="#f0f0f0" // Set the color when pressed
-  >
-    <Text>Menu Item 2</Text>
-  </TouchableHighlight>
-</Animated.View>
+      <Header title="Niyo" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
+      <FlatList
+        data={data}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item, index }) => (
+          <ContentSpace
+            text={item.text}
+            backgroundColor={item.backgroundColor}
+            textColor={item.textColor}
+            textStyle={item.textStyle}
+            isFirstContent={index === 0}
+          />
+        )}
+      />
+      <Animated.View
+        style={[
+          styles.menu,
+          {
+            transform: [{ translateX: menuTranslateX }],
+          },
+        ]}
+      >
+        <TouchableHighlight
+          onPress={handleMenuItem1}
+          style={[styles.menuItem, { backgroundColor: 'transparent' }]}
+          activeOpacity={1}
+          underlayColor="#f0f0f0"
+        >
+          <Text>Menu Item 1</Text>
+        </TouchableHighlight>
+        <TouchableHighlight
+          onPress={handleMenuItem2}
+          style={[styles.menuItem, { backgroundColor: 'transparent' }]}
+          activeOpacity={1}
+          underlayColor="#f0f0f0"
+        >
+          <Text>Menu Item 2</Text>
+        </TouchableHighlight>
+      </Animated.View>
 
       <View style={styles.footer}>
         <View style={styles.footerTextContainer}>
@@ -205,18 +192,17 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     position: "absolute",
-    top: "10%", // Adjust as needed
+    top: "10%",
     left: 0,
-    width: "100%", // Adjust as needed
+    width: "100%",
   },
   menuItem: {
     paddingVertical: 10,
     backgroundColor: 'transparent',
-    borderRadius: 10, // Add border radius for rounded corners
-    borderWidth: 1, // Add border width
-    borderColor: 'transparent', // Set border color to transparent initially
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'transparent',
   },
-
   contentSpace: {
     height: 300,
     justifyContent: "center",
@@ -228,10 +214,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   creditCardImage: {
-    width: 200, // Set width as per your requirement
-    height: 120, // Set height as per your requirement
-    resizeMode: "contain", // Adjust the image's content mode as needed
-    marginBottom: 10, // Adjust margin as needed
+    width: 200,
+    height: 120,
+    resizeMode: "contain",
+    marginBottom: 10,
   },
   footer: {
     flexDirection: "row",
@@ -239,9 +225,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     bottom: 0,
     backgroundColor: "black",
-    height: "15%", // Adjust as needed
+    height: "15%",
     width: "100%",
-    paddingHorizontal: "5%", // Adjust as needed
+    paddingHorizontal: "5%",
   },
   footerTextContainer: {
     flexDirection: "column",
