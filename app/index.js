@@ -128,8 +128,7 @@ const Home = () => {
     PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onPanResponderMove: (evt, gestureState) => {
-        // You can implement the swiping logic here
-        // For example, navigating between screens based on the swipe direction
+        // navigating between screens based on the swipe direction
         const { dx } = gestureState;
         // If the swipe is towards the right
         if (dx > 50) {
