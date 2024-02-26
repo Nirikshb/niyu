@@ -1,14 +1,27 @@
 import React, { useState, useRef } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Animated, FlatList, TouchableHighlight, PanResponder } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Animated,
+  FlatList,
+  TouchableHighlight,
+  PanResponder,
+} from "react-native";
 import { Image } from "react-native";
-import { TouchableHighlight } from 'react-native';
 import { FontAwesome5 } from "@expo/vector-icons";
 
 const Header = ({ title, toggleMenu, isMenuOpen }) => {
   return (
     <View style={styles.header}>
       <TouchableOpacity onPress={toggleMenu} style={styles.menuButton}>
-        <FontAwesome5 name="credit-card" size={25} color="white" style={{ transform: [{ rotateX: isMenuOpen ? '180deg' : '0deg' }] }} />
+        <FontAwesome5
+          name="credit-card"
+          size={25}
+          color="white"
+          style={{ transform: [{ rotateX: isMenuOpen ? "180deg" : "0deg" }] }}
+        />
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
     </View>
@@ -43,14 +56,14 @@ const Home = () => {
   const toggleMenu = () => {
     const toValue = isMenuOpen ? 0 : 1;
     const animationDuration = 400;
-  
+
     Animated.timing(menuAnimation, {
       toValue,
       duration: animationDuration,
-      useNativeDriver: true, 
+      useNativeDriver: true,
     }).start(() => setIsMenuOpen(!isMenuOpen));
   };
-  
+
   const menuTranslateX = menuAnimation.interpolate({
     inputRange: [0, 1],
     outputRange: [-500, 0],
@@ -105,13 +118,38 @@ const Home = () => {
   const handleMenuItem1 = () => {
     console.log("Menu Item 1 was pressed");
   };
-  
+
   const handleMenuItem2 = () => {
     console.log("Menu Item 2 was pressed");
   };
 
+  // PanResponder for horizontal swiping
+  const panResponder = useRef(
+    PanResponder.create({
+      onStartShouldSetPanResponder: () => true,
+      onPanResponderMove: (evt, gestureState) => {
+        // You can implement the swiping logic here
+        // For example, navigating between screens based on the swipe direction
+        const { dx } = gestureState;
+        // If the swipe is towards the right
+        if (dx > 50) {
+          console.log("Swiped right");
+          // Navigate to the previous screen or perform any action you desire
+        }
+        // If the swipe is towards the left
+        else if (dx < -50) {
+          console.log("Swiped left");
+          // Navigate to the next screen or perform any action you desire
+        }
+      },
+      onPanResponderRelease: () => {
+        // Reset any states or animations if needed
+      },
+    })
+  ).current;
+
   return (
-    <View style={styles.container}>
+    <View style={styles.container} {...panResponder.panHandlers}>
       <Header title="Niyo" toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} />
       <FlatList
         data={data}
@@ -136,7 +174,7 @@ const Home = () => {
       >
         <TouchableHighlight
           onPress={handleMenuItem1}
-          style={[styles.menuItem, { backgroundColor: 'transparent' }]}
+          style={[styles.menuItem, { backgroundColor: "transparent" }]}
           activeOpacity={1}
           underlayColor="#f0f0f0"
         >
@@ -144,7 +182,7 @@ const Home = () => {
         </TouchableHighlight>
         <TouchableHighlight
           onPress={handleMenuItem2}
-          style={[styles.menuItem, { backgroundColor: 'transparent' }]}
+          style={[styles.menuItem, { backgroundColor: "transparent" }]}
           activeOpacity={1}
           underlayColor="#f0f0f0"
         >
@@ -198,10 +236,10 @@ const styles = StyleSheet.create({
   },
   menuItem: {
     paddingVertical: 10,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: 'transparent',
+    borderColor: "transparent",
   },
   contentSpace: {
     height: 300,

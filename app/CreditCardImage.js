@@ -50,7 +50,7 @@ CreditCardImage.propTypes = {
     }),
     PropTypes.number, 
   ]).isRequired,
-};
+};t 
 
 export default CreditCardImage;
 
